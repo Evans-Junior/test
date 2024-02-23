@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>REGISTER</title>
+    <link rel="stylesheet" href="../css/register.css">
+</head>
+<body >
+    <form action="" method="post" name="register" id="form">
+        <div id="reg">REGISTER</div>
+        <div class="names">
+            <div class="fname">
+                <label for="lname">First Name</label>
+                <input placeholder="Kofi" type="text" id="fname" required></div>
+                <br>
+           <div class="lname">
+                <label for="lname">Last Name</label>
+                <input placeholder="Appiah" type="text" id="lname" required></div>
+        </div>
+
+        <div class="gender">
+            <label for="gender">Male</label>
+            <input type="radio" name="gender" id="gender" required>
+            <label for="gender">Female</label>
+            <input type="radio" name="gender" id="gender" required>
+        </div>
+        <div class="loginrole">
+            <label for="role">What is your role?</label>
+            <select name="role" id="role">
+            <option value="select">select</option>
+            <option value="father">Employee</option>
+            <option value="mother">Student</option>
+        </select>
+        </div>
+        <div class="dob">
+            <label for="DOB">Date of Birth</label>
+            <input placeholder = "DD/MM/YYYY" name = dob id = "dob" type="date" required>
+        </div>
+        <div class="phonenumber">
+            <label for="phonenumber">phonenumber</label>
+            <input type="tel" name="" id="phonenumber" name="phonenumber" required>
+        </div>
+        <div class="identification">
+            <label for="id">ID number</label>
+            <input type="ID" name="" id="ID" name="ID" required>
+        </div>
+        <div class="email">
+            <label for="email">email</label>
+             <input placeholder="email@mail.com" type="email" id="email" name ="email" required/>   
+        </div>
+        <div class="password">
+            <label for="password">password</label>
+            <input placeholder="password" type="password" id = "password" name ="password" pattern="[a-zA-Z0-9]+[0,9]*" required>
+            <br>
+            <br>
+            <div id="retype">
+                <label for="password">retype password</label>
+                <input placeholder="retype password" type="password" id = "password" name ="password" pattern="[a-zA-Z0-9]+[0,9]*"required></div>
+        </div>
+        <div id="register">
+            <a href="dashboard.html"><input type="button" name="register" id="registerbutton" value="register"></a>
+        </div>
+        <div id="login">
+            Already have an account? <a href="index.html">Login</a>
+        </div>
+    </form>
+    <script src = "action_SignUp.js"></script>
+</body>
+</html>

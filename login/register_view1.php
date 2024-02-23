@@ -90,7 +90,7 @@
       <button type="submit" name="submit">Submit</button>
     </form>
     <hr class="divider">
-    <button type="button" class="login-btn"><a href="../login/login_view.html"> I have an account</a></button>
+    <button type="button" class="login-btn"><a href="../login/login_view.php"> I have an account</a></button>
   </div>
 </body>
 </html>

@@ -17,7 +17,7 @@
             <div id="contact"><a href="#tacts">Contacts</a></div>
         </div>
         <div class="logins">
-            <div id="login"><a  class ="first" href="../login/login_view.html">Login</a></div>
+            <div id="login"><a  class ="first" href="../login/login_view.php">Login</a></div>
             <div id="register"><a  class ="second"  href="../login/register_view.html">Register</a></div>
         </div>
     </div>

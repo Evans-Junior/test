@@ -1,3 +1,3 @@
 <?php
-    header('Location: ../view/filenotfound.php');
+    header('Location: ../view/filenotfound.html');
 ?>

@@ -85,7 +85,7 @@ include '../functions/get_halls_fxn.php';
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="../login/logout_view.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -104,9 +104,10 @@ include '../functions/get_halls_fxn.php';
                 </form>
             </div>
         </div>
-        <h2 class="mt-4">Halls Management</h2>
+        <h2 class="mt-4 text-center">Halls Management</h2>
 
-        
+        <?php if (strtolower($_SESSION['role_id']) == 1): ?>
+
         <div class="card">
             <h4>Add New Hall</h4>
             <form action="../actions/add_hall_action.php" method="POST">
@@ -130,7 +131,7 @@ include '../functions/get_halls_fxn.php';
                 <button type="submit" class="btn btn-primary">Add Hall</button>
             </form>
         </div>
-
+        <?php endif; ?>
         <div class="card">
     <h4 style="text-align: center;">Manage Halls</h4>
     <div class="table-responsive">
@@ -151,7 +152,9 @@ include '../functions/get_halls_fxn.php';
                     echo "<td>" . $hall['capacity'] . "</td>";
                     echo "<td>";
                     echo "<a class='btn btn-sm btn-primary btn-edit' style='margin-right:20px' href='hall.php?hall_name=" . urlencode($hall['hall_name']) . "&capacity=" . urlencode($hall['capacity']) . "'>Edit</a>";
+                    if (strtolower($_SESSION['role_id']) == 1):
                     echo "<a class='btn btn-sm btn-danger' href='../actions/delete_hall_action.php?hall_name=" . urlencode($hall['hall_name']) . "&capacity=" . urlencode($hall['capacity']) . "'>Delete</a>";
+                    endif;
                     echo "</td>";
                     echo "</tr>";
                 }

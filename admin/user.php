@@ -203,7 +203,11 @@
             <table class="table table-striped">
                 <thead>
                     <tr>
+                    <?php if (strtolower($_SESSION['role_id']) == 1): ?>
+
                         <th>#</th>
+                        <?php endif; ?>
+
                         <th>Username</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -212,8 +216,8 @@
                 </thead>
                 <tbody id='choreTable'>
                     <!-- Loop through the fetched users and display them -->
+                    <?php if (strtolower($_SESSION['role_id']) == 1): ?>
                     <?php 
-
                     if (is_array($users) && !empty($users)): ?>
                         <?php foreach ($users as $index => $us): ?>
                             <tr id="<?php echo $index + 1; ?>">
@@ -246,6 +250,45 @@
                             <td colspan="5">No users found.</td>
                         </tr>
                     <?php endif; ?>
+                    <?php endif; ?>
+                    <?php if (strtolower($_SESSION['role_id']) == 2): ?>
+                    <?php 
+                    if (is_array($users) && !empty($users)): ?>
+                        <?php foreach ($users as $index => $us): ?>
+                            <?php if ($us['role_id'] == 3): ?> <!-- Add this condition -->
+                                <tr id="<?php echo $index + 1; ?>">
+                                <?php if (strtolower($_SESSION['role_id']) == 1): ?>
+
+                                    <td><?php echo $index + 1; ?></td>
+                                    <?php endif; ?>
+
+                                    <td><?php echo $us['username']; ?></td>
+                                    <td><?php echo $us['email']; ?></td>
+                                    <td>
+                                        <?php 
+                                        if ($us['role_id'] == 1) {
+                                            echo 'Admin';
+                                        } elseif ($us['role_id'] == 2) {
+                                            echo 'Manager';
+                                        } else {
+                                            echo 'Student';
+                                        }
+                                        ?>    
+                                    </td>
+                                    <td class="actions">
+                                        <button class="btn btn-success btn-sm" onclick="openEditPopup(<?php echo $us['user_id']; ?>, '<?php echo $us['username']; ?>')">Edit</button>
+                                        <button class="btn btn-danger btn-sm" onclick="deleteUser(<?php echo $us['user_id']; ?>,'<?php echo $us['role_id']; ?>','<?php echo $us['email']; ?>',<?php echo $index + 1; ?>)">Delete</button>
+                                    </td>
+                                </tr>
+                            <?php endif; ?> <!-- End of condition -->
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5">No users found.</td>
+                        </tr>
+                    <?php endif; ?>
+                <?php endif; ?>
+
                 </tbody>
             </table>
         </div>

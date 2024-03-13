@@ -158,8 +158,17 @@ include '../functions/get_all_rooms.php';
         
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="#"><?php echo "Welcome, " . $_SESSION['username']; ?></a>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Welcome, Admin Name
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="../login/logout_view.php">Logout</a>
+                    </div>
                 </li>
             </ul>
         </div>
@@ -170,10 +179,14 @@ include '../functions/get_all_rooms.php';
         ?></h1>
         <div class="btn-back d-flex justify-content-between">
             <a href="../admin/halls.php" class="btn btn-secondary">Back</a>
+            <?php if (strtolower($_SESSION['role_id']) == 1): ?>
             <button class="btn btn-success btn-add-room" id='btn-add-room'>Add New Room</button>
+            <button class="btn btn-danger btn-rm-students-to-room" id='btn-add-room'>Remove Students</button>
+            <?php endif; ?>
+            <button class="btn btn-danger btn-rm-student-to-room" id='btn-add-room'>Remove Student</button>
             <button class="btn btn-success btn-add-student-to-room" id='btn-add-student-to-room'>Give Out Room</button>
         </div>
-        
+        <?php if (strtolower($_SESSION['role_id']) == 1): ?>
         <form action="../actions/update_hall_action.php" method="post">
             <div class="form-group">
                 <label for="hallName">Hall Name:</label>
@@ -186,7 +199,7 @@ include '../functions/get_all_rooms.php';
             </div>
             <button type="submit" class="btn btn-primary">Update</button>
         </form>
-
+        <?php endif; ?>
         <h2 style='margin-top:50px'>Available Rooms</h2>
         <div class="row justify-content-center flex-nowrap">
             <?php

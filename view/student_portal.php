@@ -21,13 +21,24 @@
       <a href="#"><img src="../../asbed/assets/magnifying-glass.png" alt="search" width="20px" height="20px"></a>
     </div>
 
-    <div class="dropdown">
-      <div class="welcome-user">user name</div>
-      <div class="dropdown-content">
-        <a href="#">Settings</a>
-        <a href="#">Logout</a>
-      </div>
-    </div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Welcome, <?php
+                           echo $_SESSION['username']
+                        ?> 
+                    </a>
+                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="#">Profile</a>
+                        <a class="dropdown-item" href="#">Settings</a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item" href="../login/logout_view.php">Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
   </div>
 
   <div class="hall-container">

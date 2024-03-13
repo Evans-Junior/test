@@ -1,3 +1,8 @@
+<?php
+    //inclde deletion of the verificaiton pin
+    include '../functions/clear_data.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 

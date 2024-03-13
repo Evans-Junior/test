@@ -2,7 +2,7 @@
 // Define constants to store the database connection parameters
 $SERVER= 'localhost';
 $USERNAME= 'root';
-$PASSWORD= '';
+$PASSWORD= '    ';
 $DATABASE='asbedDatabase';
 
 $con =new mysqli($SERVER,$USERNAME,$PASSWORD,$DATABASE) or die("The database was not created");

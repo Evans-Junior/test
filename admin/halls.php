@@ -1,3 +1,18 @@
+<?php
+// Start session
+session_start();
+if (!isset($_SESSION['role_id'])) {
+    header('Location: ../login/logout_view.php?error=unauthorized_user');
+    exit();
+}
+else if($_SESSION['role_id'] != 2 && $_SESSION['role_id'] != 1){
+    header('Location: ../login/logout_view.php?error=unauthorized_user');
+    exit();
+}
+// get all halls
+include '../functions/get_halls_fxn.php';
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -94,112 +109,55 @@
         
         <div class="card">
             <h4>Add New Hall</h4>
-            <form>
+            <form action="../actions/add_hall_action.php" method="POST">
                 <div class="form-group">
                     <label for="hallName">Hall Name:</label>
-                    <input type="text" class="form-control" id="hallName" placeholder="Enter hall name">
+                    <input type="text" class="form-control" id="hallName" name='hallName' placeholder="Enter hall name">
                 </div>
                 <div class="form-group">
                     <label for="capacity">Capacity:</label>
-                    <input type="number" class="form-control" id="capacity" placeholder="Enter capacity">
+                    <input type="number" class="form-control" id="capacity" name="capacity" placeholder="Enter capacity">
                 </div>
+
+                <div class="form-group">
+                        <label for="role">Role</label>
+                        <div class="radio-group">
+                            <input type="radio" id="onCampus" name="location" value="onCampus">
+                            <label for="onCampus">On Campus</label>
+                            <input type="radio" id="offCampus" name="location" value="offCampus">
+                            <label for="offCampus">Off Campus</label>
+                    </div>
                 <button type="submit" class="btn btn-primary">Add Hall</button>
             </form>
         </div>
 
         <div class="card">
-            <h4>Manage Halls</h4>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Hall Name</th>
-                            <th>Capacity</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Hall A</td>
-                            <td>100</td>
-                            <td>
-                                <button class="btn btn-sm btn-primary btn-edit" >Edit</button>
-                                <button class="btn btn-sm btn-danger">Delete</button>
-                            </td>
-                        </tr>
-                        <!-- Add more rows for each hall -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
-
-<!-- Edit Modal -->
-<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editModalLabel">Edit Hall Details</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <h6>Rooms in Hall A:</h6>
-                <div class="row room-categories">
-                    <div class="col-md-6">
-                        <h6>Category 1</h6>
-                        <div class="card-group">
-                            <!-- Room boxes for category 1 -->
-                            <div class="card room-card" data-room-number="101" data-room-capacity="20">
-                                <div class="card-body">
-                                    <h5 class="card-title">Room 101</h5>
-                                    <p class="card-text">Capacity: 1</p>
-                                </div>
-                            </div>
-                            <div class="card room-card" data-room-number="102" data-room-capacity="18">
-                                <div class="card-body">
-                                    <h5 class="card-title">Room 102</h5>
-                                    <p class="card-text">Capacity: 2</p>
-                                </div>
-                            </div>
-                            <!-- Add more rooms for category 1 -->
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <h6>Category 2</h6>
-                        <div class="card-group">
-                            <!-- Room boxes for category 2 -->
-                            <div class="card room-card" data-room-number="201" data-room-capacity="15">
-                                <div class="card-body">
-                                    <h5 class="card-title">Room 201</h5>
-                                    <p class="card-text">Capacity: 3</p>
-                                </div>
-                            </div>
-                            <div class="card room-card" data-room-number="202" data-room-capacity="12">
-                                <div class="card-body">
-                                    <h5 class="card-title">Room 202</h5>
-                                    <p class="card-text">Capacity: 4</p>
-                                </div>
-                            </div>
-                            <!-- Add more rooms for category 2 -->
-                        </div>
-                    </div>
-                </div>
-                <!-- Add more categories as needed -->
-                <div class="text-center mt-3">
-                    <!-- <button class="btn btn-primary" id="addRoomBtn" data-toggle="modal">Add a Room</button> -->
-                    <!-- Add Room Button -->
-                    <button class="btn btn-primary" id="addRoomBtn">Add a Room</button>
-
-                    <!-- Add Room Modal -->
-                    <div class="modal fade" id="addRoomModal" tabindex="-1" role="dialog" aria-labelledby="addRoomModalLabel" aria-hidden="true">
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            </div>
-        </div>
+    <h4 style="text-align: center;">Manage Halls</h4>
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Hall Name</th>
+                    <th>Capacity</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
+                // Loop through each hall and populate table rows
+                foreach ($hallData as $hall) {
+                    echo "<tr>";
+                    echo "<td>" . $hall['hall_name'] . "</td>";
+                    echo "<td>" . $hall['capacity'] . "</td>";
+                    echo "<td>";
+                    echo "<a class='btn btn-sm btn-primary btn-edit' style='margin-right:20px' href='hall.php?hall_name=" . urlencode($hall['hall_name']) . "&capacity=" . urlencode($hall['capacity']) . "'>Edit</a>";
+                    echo "<a class='btn btn-sm btn-danger' href='../actions/delete_hall_action.php?hall_name=" . urlencode($hall['hall_name']) . "&capacity=" . urlencode($hall['capacity']) . "'>Delete</a>";
+                    echo "</td>";
+                    echo "</tr>";
+                }
+                ?>
+            </tbody>
+        </table>
     </div>
 </div>
 
@@ -247,21 +205,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 <script>
-    $(document).ready(function(){
-        // Add click event listener to the "Edit" buttons
-        $('.btn-edit').click(function(){
-            // Get the hall name from the table row
-            var hallName = $(this).closest('tr').find('td:eq(0)').text();
-            
-            // Update modal title with the hall name
-            $('#editModalLabel').text('Edit Hall Details - ' + hallName);
-            
-            // TODO: Populate modal with editable hall details
-            
-            // Show the modal
-            $('#editModal').modal('show');
-        });
-    });
+
 </script>
 
 

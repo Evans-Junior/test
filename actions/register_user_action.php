@@ -13,8 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     
 
     // Encrypt password
-    $hashed_password = password_hash($passwd, PASSWORD_DEFAULT);
-
+    $_SESSION['hashed_password']= password_hash($passwd, PASSWORD_DEFAULT);
     // Check if the email already exists
     $emailCheckQuery = "SELECT COUNT(*) as count FROM Users WHERE email = '$email'";
     $emailCheckResult = $con->query($emailCheckQuery);
@@ -75,27 +74,11 @@ console.log("Hello");
     if ($emailCheckData['count'] > 0) {
         echo "An account with this email already exists.";
     } 
-    // else if (mail($email, "Verification Code From ASBED", $message, "From: <kwakukumi14@gmail.com>")){
-    //     echo "Email sent successfully";
-    //     echo "<script>
-    //     alert('Check your email for your verification pin.')
-    //     </script>";
-    //     header("Location: ../login/verify_pin_view.php");
-    //     die();
-    // }
-    // else if(!send($email)){
-    //     echo "Email failed to send";
-    // }
     else {
         echo "Error: " . $con->error;
     }
 }
 ?>
 
-<!-- Inserting data -->
-<!-- $query = "INSERT INTO Users (user_id, username, password, email, role_id) VALUES
-        (0, '$username', '$hashed_password', '$email', '$role_id')";
-// Execute the query
-$result = $con->query($query); -->
 
 

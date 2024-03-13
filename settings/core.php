@@ -19,15 +19,15 @@ function checkLogin() {
         $elapsedTime = $currentTime - $lastActivityTime;
         
         // If the session has been inactive for more than a minute (60 seconds), redirect to welcome page
-        if ($elapsedTime > 60) { // Change 60 to the desired number of seconds
+        if ($elapsedTime >= 60) { // Change 60 to the desired number of seconds
             // Redirect to the login page  
-            header("Location: ../view/landing.html");
+            header("Location: ../login/logout_view.php");
             // Terminate script execution after redirection
             die();
         } else {
             // Update the last activity time to the current time
             $_SESSION['last_activity'] = $currentTime;
-            header("Location: ../view/student_portal.html");
+            header("Location: ../view/student_portal.php");
             die();
         }
     }

@@ -1,3 +1,17 @@
+<?php
+// Start session
+session_start();
+if (!isset($_SESSION['role_id'])) {
+    header('Location: ../login/logout_view.php?error=unauthorized_user');
+    exit();
+}
+else if($_SESSION['role_id'] != 2 && $_SESSION['role_id'] != 1){
+    header('Location: ../login/logout_view.php?error=unauthorized_user');
+    exit();
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -126,13 +140,15 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        Welcome, Admin Name
+                        Welcome, <?php
+                           echo $_SESSION['username']
+                        ?> 
                     </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="#">Profile</a>
                         <a class="dropdown-item" href="#">Settings</a>
                         <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Logout</a>
+                        <a class="dropdown-item" href="../login/logout_view.php">Logout</a>
                     </div>
                 </li>
             </ul>
@@ -143,8 +159,10 @@
         <a href="../admin/dashboard.php">Dashboard</a>
         <a href="../admin/user.php">Users</a>
         <a href="../admin/halls.php">Halls</a>
-        <a href="#">Announcements</a>
+        <a href="../admin/announcement.php">Announcements</a>
         <a href="#">Reports</a>
+        <a href="#">More</a>
+
     </div>
 
     <div class="content">
@@ -208,7 +226,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script>
         function toggleSidebar() {
-            document.getElementsById('.sidebar').addEventListener('click', function () {
+            document.getElementById('.sidebar').addEventListener('click', function () {
               var sidebar = document.getElementById('sidebar');
               if (sidebar.style.display !== 'none') {
                 sidebar.style.display = 'none';
